@@ -279,6 +279,9 @@ fun RideCard(
     val carModel = driver.carModel.orEmpty()
     val carColor = driver.carColor.orEmpty()
     val carPlate = driver.carPlate.orEmpty()
+    val distanceText = driver.distanceKm?.let {
+        "Distance: ${String.format("%.1f", it)} km away"
+    } ?: "Distance: N/A"
 
     val rating = remember(driver.carPlate) {
         when (driver.carPlate.length % 3) {
@@ -346,20 +349,44 @@ fun RideCard(
 
                         Spacer(modifier = Modifier.height(6.dp))
 
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                text = "Plate: ",
-                                color = Color(0xFFB0B0B0),
-                                fontFamily = SpaceGrotesk,
-                                fontSize = 14.sp
-                            )
-                            Text(
-                                text = carPlate,
-                                color = Color(0xFF00FF43),
-                                fontFamily = SpaceGrotesk,
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 14.sp
-                            )
+                        Column {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = "Plate: ",
+                                    color = Color(0xFFB0B0B0),
+                                    fontFamily = SpaceGrotesk,
+                                    fontSize = 14.sp
+                                )
+                                Text(
+                                    text = carPlate,
+                                    color = Color(0xFF00FF43),
+                                    fontFamily = SpaceGrotesk,
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 14.sp
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.height(6.dp))
+
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+
+                                Text(
+                                    text = "Distance: ",
+                                    color = Color(0xFFB0B0B0),
+                                    fontFamily = SpaceGrotesk,
+                                    fontSize = 14.sp
+                                )
+
+                                Text(
+                                    text = driver.distanceKm?.let {
+                                        "${String.format("%.1f", it)} km away"
+                                    } ?: "N/A",
+                                    color = Color(0xFF00FF43), // same green as Plate value
+                                    fontFamily = SpaceGrotesk,
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 14.sp
+                                )
+                            }
                         }
                     }
 
