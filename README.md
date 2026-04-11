@@ -1,6 +1,6 @@
 # KigaliRide
 This project **KigaliRide** is for addressing the problem of urban mobility in Kigali City.
-It helps riders looking for services in the following categories **Taxi Cars**, **Rent Cars**, **Relocation Cars** to instantly find nearest(2KM) available drivers.
+It helps riders looking for services in the following categories **Taxi Cars**, **Rent Cars**, **Relocation Cars** to instantly find nearest(**3 Kilometers**) available drivers.
 No need for drivers and riders to go around in the roads to physically look for each other as it was being done by most users currently.
 
 ## MVP's Current Features
