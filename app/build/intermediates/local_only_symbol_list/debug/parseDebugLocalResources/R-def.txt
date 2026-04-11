@@ -1,0 +1,10 @@
+R_DEF: Internal format may change without notice
+local
+drawable car_dummy
+drawable dummy_car
+drawable welcome_bg
+font space_grotesk_bold
+font space_grotesk_medium
+font space_grotesk_regular
+string app_name
+style Theme.KigaliRide
