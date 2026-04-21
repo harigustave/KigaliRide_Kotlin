@@ -3,26 +3,55 @@ package com.example.kigaliride.ui.screens
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DirectionsCar
+import androidx.compose.material.icons.filled.Groups
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Security
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.kigaliride.R
 import com.example.kigaliride.data.model.DriverInfo
-import com.example.kigaliride.ui.theme.MutedText
+import com.example.kigaliride.ui.components.AppHeader
+import com.example.kigaliride.ui.theme.SpaceGrotesk
 
 @Composable
 fun DriverDashboardScreen(
@@ -32,7 +61,6 @@ fun DriverDashboardScreen(
     onSetAvailability: (Boolean) -> Unit,
     showMessage: (String) -> Unit
 ) {
-    // This screen shows driver details after successful login.
     val context = LocalContext.current
 
     val locationPermissionLauncher = rememberLauncherForActivityResult(
@@ -50,54 +78,215 @@ fun DriverDashboardScreen(
         }
     }
 
-    ScreenContainer {
+    val carMake = driver?.carMake.orEmpty()
+    val carModel = driver?.carModel.orEmpty()
+    val carPlate = driver?.carPlate.orEmpty()
+    val carColor = driver?.carColor.orEmpty()
+    val phone = driver?.phoneNumber.orEmpty()
+    val serviceType = driver?.serviceType.orEmpty()
+    val carCapacity = driver?.carCapacity?.toString() ?: "N/A"
+    val isAvailable = driver?.isAvailable == true
+
+    val scrollState = rememberScrollState()
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.welcome_bg),
+            contentDescription = "Background",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.35f))
+        )
+
         Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Top
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+                .navigationBarsPadding()
+                .verticalScroll(scrollState)
+                .padding(horizontal = 10.dp)
         ) {
-            KigaliRideTitle(
-                title = "Driver Dashboard",
-                subtitle = "Your active vehicle and current service details"
-            )
+            Spacer(modifier = Modifier.height(20.dp))
 
-            Spacer(modifier = Modifier.height(24.dp))
+            AppHeader()
 
-            InfoCard(
-                title = "Vehicle",
-                description = buildString {
-                    appendLine("Plate: ${driver?.carPlate ?: "N/A"}")
-                    appendLine("Make: ${driver?.carMake ?: "N/A"}")
-                    appendLine("Model: ${driver?.carModel ?: "N/A"}")
-                    appendLine("Color: ${driver?.carColor ?: "N/A"}")
-                    appendLine("Capacity: ${driver?.carCapacity ?: 0}")
-                    append("Service: ${driver?.serviceType ?: "N/A"}")
-                }
-            )
+            Spacer(modifier = Modifier.height(18.dp))
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            InfoCard(
-                title = "Driver Contact",
-                description = "Phone: ${driver?.phoneNumber ?: "N/A"}"
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Column {
-                    Text(text = "Availability", color = Color.White, fontWeight = FontWeight.Bold)
-                    Text(text = if (driver?.isAvailable == true) "Online" else "Offline", color = MutedText)
-                }
-                Switch(
-                    checked = driver?.isAvailable == true,
-                    onCheckedChange = onSetAvailability
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.driver_avatar),
+                    contentDescription = "Driver Avatar",
+                    modifier = Modifier
+                        .size(92.dp)
+                        .clip(CircleShape)
+                        .background(Color.White)
                 )
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                Text(
+                    text = "Paul",
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = SpaceGrotesk
+                )
+
+                Text(
+                    text = "Mutabazi",
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = SpaceGrotesk
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(Color(0xFF0E2A14))
+                        .padding(horizontal = 12.dp, vertical = 6.dp)
+                ) {
+                    Text(
+                        text = "★ 4.98 Rating",
+                        color = Color(0xFF00FF5A),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = SpaceGrotesk
+                    )
+                }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(22.dp))
 
-            PrimaryActionButton(
-                text = "USE THIS LOCATION",
+            DriverDashboardMainCard(
+                title = "ACTIVE VEHICLE",
+                content = {
+                    Text(
+                        text = "$carMake $carModel",
+                        color = Color(0xFF00FF5A),
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = SpaceGrotesk,
+                        lineHeight = 24.sp
+                    )
+
+                    Spacer(modifier = Modifier.height(18.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column {
+                            Text(
+                                text = "PLATE NUMBER",
+                                color = Color(0xFF8A8A8A),
+                                fontSize = 11.sp,
+                                fontFamily = SpaceGrotesk
+                            )
+
+                            Spacer(modifier = Modifier.height(4.dp))
+
+                            Text(
+                                text = carPlate,
+                                color = Color.White,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Medium,
+                                fontFamily = SpaceGrotesk
+                            )
+                        }
+
+                        Column {
+                            Text(
+                                text = "COLOR",
+                                color = Color(0xFF8A8A8A),
+                                fontSize = 11.sp,
+                                fontFamily = SpaceGrotesk
+                            )
+
+                            Spacer(modifier = Modifier.height(4.dp))
+
+                            Text(
+                                text = carColor,
+                                color = Color.White,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Medium,
+                                fontFamily = SpaceGrotesk
+                            )
+                        }
+                    }
+                }
+            )
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            DriverDashboardMainCard(
+                title = "SERVICE TYPE",
+                icon = Icons.Filled.Security,
+                content = {
+                    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        DashboardRadioLine(
+                            text = "Taxi Car",
+                            selected = serviceType.equals("Taxi Car", ignoreCase = true)
+                        )
+                        DashboardRadioLine(
+                            text = "Rent Car",
+                            selected = serviceType.equals("Rent Car", ignoreCase = true)
+                        )
+                        DashboardRadioLine(
+                            text = "Relocation",
+                            selected = serviceType.equals("Relocation Car", ignoreCase = true)
+                        )
+                    }
+                }
+            )
+
+//            Spacer(modifier = Modifier.height(14.dp))
+
+//            DriverDashboardSmallCard(
+//                title = "CAPACITY",
+//                value = "$carCapacity Passengers",
+//                icon = Icons.Filled.Groups
+//            )
+
+//            Spacer(modifier = Modifier.height(14.dp))
+//
+//            DriverDashboardSmallCard(
+//                title = "CONTACT",
+//                value = phone,
+//                icon = Icons.Filled.Phone
+//            )
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            DriverDashboardStatusCard(
+                title = "STATUS",
+                value = if (isAvailable) "Online" else "Offline",
+                checked = isAvailable,
+                onCheckedChange = onSetAvailability
+            )
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            DriverMapPlaceholderCard(
+                latitude = driver?.latitude,
+                longitude = driver?.longitude
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
                 onClick = {
                     if (hasLocationPermission(context)) {
                         getHighAccuracyLocation(
@@ -113,10 +302,330 @@ fun DriverDashboardScreen(
                             )
                         )
                     }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
+                shape = RoundedCornerShape(30.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF00FF43)
+                ),
+                enabled = !isLoading
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.LocationOn,
+                        contentDescription = "Location",
+                        tint = Color.Black,
+                        modifier = Modifier.size(20.dp)
+                    )
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(
+                        text = "USE THIS LOCATION",
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = SpaceGrotesk
+                    )
                 }
-            )
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
         }
 
         LoadingOverlay(isLoading = isLoading)
+    }
+}
+
+@Composable
+fun DriverDashboardMainCard(
+    title: String,
+    icon: androidx.compose.ui.graphics.vector.ImageVector? = null,
+    content: @Composable () -> Unit
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF171717))
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    brush = Brush.horizontalGradient(
+                        colors = listOf(
+                            Color(0xFF1A1A1A),
+                            Color(0xFF171717),
+                            Color(0xFF121212)
+                        )
+                    )
+                )
+                .padding(20.dp)
+        ) {
+            Column {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    if (icon != null) {
+                        Box(
+                            modifier = Modifier
+                                .size(38.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFF1A1A1A)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = icon,
+                                contentDescription = title,
+                                tint = Color(0xFF00FF5A),
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.width(12.dp))
+                    }
+
+                    Text(
+                        text = title,
+                        color = Color(0xFF8A8A8A),
+                        fontSize = 11.sp,
+                        fontFamily = SpaceGrotesk
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                content()
+            }
+        }
+    }
+}
+
+@Composable
+fun DriverDashboardSmallCard(
+    title: String,
+    value: String,
+    icon: androidx.compose.ui.graphics.vector.ImageVector
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF171717))
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 18.dp, vertical = 18.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(38.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color(0xFF272727)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = title,
+                    tint = Color(0xFFBFBFBF),
+                    modifier = Modifier.size(18.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            Column {
+                Text(
+                    text = title,
+                    color = Color(0xFF8A8A8A),
+                    fontSize = 11.sp,
+                    fontFamily = SpaceGrotesk
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = value,
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium,
+                    fontFamily = SpaceGrotesk
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun DriverDashboardStatusCard(
+    title: String,
+    value: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF171717))
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp, vertical = 18.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .size(38.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Color(0xFF272727)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Security,
+                        contentDescription = title,
+                        tint = Color(0xFFBFBFBF),
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                Column {
+                    Text(
+                        text = title,
+                        color = Color(0xFF8A8A8A),
+                        fontSize = 11.sp,
+                        fontFamily = SpaceGrotesk
+                    )
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    Text(
+                        text = value,
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Medium,
+                        fontFamily = SpaceGrotesk
+                    )
+                }
+            }
+
+            Switch(
+                checked = checked,
+                onCheckedChange = onCheckedChange,
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = Color.Black,
+                    checkedTrackColor = Color(0xFF00FF43)
+                )
+            )
+        }
+    }
+}
+
+@Composable
+fun DashboardRadioLine(
+    text: String,
+    selected: Boolean
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .size(10.dp)
+                .clip(CircleShape)
+                .background(if (selected) Color(0xFF00FF5A) else Color.Transparent)
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Text(
+            text = text,
+            color = if (selected) Color(0xFF00FF5A) else Color(0xFFA0A0A0),
+            fontSize = 16.sp,
+            fontFamily = SpaceGrotesk
+        )
+    }
+}
+
+@Composable
+fun DriverMapPlaceholderCard(
+    latitude: Double?,
+    longitude: Double?
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(190.dp),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF12A8B0))
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.map_placeholder),
+                contentDescription = "Map Placeholder",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+
+            Box(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(70.dp)
+                    .clip(CircleShape)
+                    .background(Color(0x6600FF43)),
+                contentAlignment = Alignment.Center
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(42.dp)
+                        .clip(CircleShape)
+                        .background(Color(0xFF00FF43)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.LocationOn,
+                        contentDescription = "Location Marker",
+                        tint = Color.Black,
+                        modifier = Modifier.size(22.dp)
+                    )
+                }
+            }
+
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 18.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = if (latitude != null && longitude != null)
+                        "Driver Coordinates: %.5f, %.5f".format(latitude, longitude)
+                    else
+                        "Location unavailable",
+                    color = Color.White,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Medium,
+                    fontFamily = SpaceGrotesk
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = "You can use the button below to change your location anytime.",
+                    color = Color(0xFFE8E8E8),
+                    fontSize = 11.sp,
+                    fontFamily = SpaceGrotesk
+                )
+            }
+        }
     }
 }

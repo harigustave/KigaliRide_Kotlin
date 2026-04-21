@@ -1,26 +1,34 @@
 [
     {
-        "merged": "com.example.kigaliride.app-debug-69:/font_space_grotesk_medium.ttf.flat",
-        "source": "com.example.kigaliride.app-main-71:/font/space_grotesk_medium.ttf"
+        "merged": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-debug-69:\\drawable_dummy_car.jpg.flat",
+        "source": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-main-71:\\drawable\\dummy_car.jpg"
     },
     {
-        "merged": "com.example.kigaliride.app-debug-69:/drawable_dummy_car.jpg.flat",
-        "source": "com.example.kigaliride.app-main-71:/drawable/dummy_car.jpg"
+        "merged": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-debug-69:\\drawable_welcome_bg.png.flat",
+        "source": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-main-71:\\drawable\\welcome_bg.png"
     },
     {
-        "merged": "com.example.kigaliride.app-debug-69:/font_space_grotesk_regular.ttf.flat",
-        "source": "com.example.kigaliride.app-main-71:/font/space_grotesk_regular.ttf"
+        "merged": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-debug-69:\\font_space_grotesk_bold.ttf.flat",
+        "source": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-main-71:\\font\\space_grotesk_bold.ttf"
     },
     {
-        "merged": "com.example.kigaliride.app-debug-69:/font_space_grotesk_bold.ttf.flat",
-        "source": "com.example.kigaliride.app-main-71:/font/space_grotesk_bold.ttf"
+        "merged": "com.example.kigaliride.app-debug-69:/drawable_map_placeholder.png.flat",
+        "source": "com.example.kigaliride.app-main-71:/drawable/map_placeholder.png"
     },
     {
-        "merged": "com.example.kigaliride.app-debug-69:/drawable_car_dummy.png.flat",
-        "source": "com.example.kigaliride.app-main-71:/drawable/car_dummy.png"
+        "merged": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-debug-69:\\drawable_car_dummy.png.flat",
+        "source": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-main-71:\\drawable\\car_dummy.png"
     },
     {
-        "merged": "com.example.kigaliride.app-debug-69:/drawable_welcome_bg.png.flat",
-        "source": "com.example.kigaliride.app-main-71:/drawable/welcome_bg.png"
+        "merged": "com.example.kigaliride.app-debug-69:/drawable_driver_avatar.png.flat",
+        "source": "com.example.kigaliride.app-main-71:/drawable/driver_avatar.png"
+    },
+    {
+        "merged": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-debug-69:\\font_space_grotesk_regular.ttf.flat",
+        "source": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-main-71:\\font\\space_grotesk_regular.ttf"
+    },
+    {
+        "merged": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-debug-69:\\font_space_grotesk_medium.ttf.flat",
+        "source": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-main-71:\\font\\space_grotesk_medium.ttf"
     }
 ]

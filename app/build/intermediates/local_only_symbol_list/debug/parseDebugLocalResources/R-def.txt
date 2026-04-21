@@ -1,7 +1,7 @@
 R_DEF: Internal format may change without notice
 local
-drawable car_dummy
-drawable dummy_car
+drawable driver_avatar
+drawable map_placeholder
 drawable welcome_bg
 font space_grotesk_bold
 font space_grotesk_medium

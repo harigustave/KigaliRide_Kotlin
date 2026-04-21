@@ -303,7 +303,7 @@ fun RideCard(
         Column {
             Box {
                 AsyncImage(
-                    model = driver.carImage ?: R.drawable.car_dummy,
+                    model = driver.carImage,
                     contentDescription = "Car",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
