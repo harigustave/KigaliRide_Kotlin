@@ -26,6 +26,9 @@ import com.example.kigaliride.ui.screens.WelcomeScreen
 import com.example.kigaliride.ui.screens.getHighAccuracyLocation
 import com.example.kigaliride.ui.screens.hasLocationPermission
 import com.example.kigaliride.ui.viewmodel.AppViewModel
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,92 +70,96 @@ fun KigaliRideApp(viewModel: AppViewModel = viewModel()) {
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
-    ) { _ ->
-        NavHost(
-            navController = navController,
-            startDestination = Routes.Welcome
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Routes.Welcome) {
-                WelcomeScreen(navController = navController)
-            }
+            NavHost(
+                navController = navController,
+                startDestination = Routes.Welcome
+            ) {
+                composable(Routes.Welcome) {
+                    WelcomeScreen(navController = navController)
+                }
 
-            composable(Routes.CustomerVerification) {
-                CustomerVerificationScreen(
-                    navController = navController,
-                    viewModel = viewModel
-                )
-            }
+                composable(Routes.CustomerVerification) {
+                    CustomerVerificationScreen(
+                        navController = navController,
+                        viewModel = viewModel
+                    )
+                }
 
-            composable(Routes.ChooseService) {
-                ChooseRideServiceScreen(
-                    selectedService = uiState.selectedServiceType,
-                    onServiceSelected = viewModel::chooseServiceType,
-                    onContinueClick = {
-                        if (hasLocationPermission(context)) {
-                            getHighAccuracyLocation(
-                                context = context,
-                                onSuccess = { latitude, longitude ->
+                composable(Routes.ChooseService) {
+                    ChooseRideServiceScreen(
+                        selectedService = uiState.selectedServiceType,
+                        onServiceSelected = viewModel::chooseServiceType,
+                        onContinueClick = {
+                            if (hasLocationPermission(context)) {
+                                getHighAccuracyLocation(
+                                    context = context,
+                                    onSuccess = { latitude, longitude ->
 
-                                    // Start fetching drivers
-                                    viewModel.updateCustomerLocationAndFetchDrivers(latitude, longitude) {
-                                        // do nothing
+                                        // Start fetching drivers
+                                        viewModel.updateCustomerLocationAndFetchDrivers(latitude, longitude) {
+                                            // do nothing
+                                        }
+
+                                        // Navigate immediately
+                                        navController.navigate(Routes.AvailableRides)
+                                    },
+                                    onFailure = { message ->
+                                        viewModel.showAppMessage(message)
                                     }
-
-                                    // Navigate immediately
-                                    navController.navigate(Routes.AvailableRides)
-                                },
-                                onFailure = { message ->
-                                    viewModel.showAppMessage(message)
-                                }
-                            )
-                        } else {
-                            customerLocationPermissionLauncher.launch(
-                                arrayOf(
-                                    Manifest.permission.ACCESS_FINE_LOCATION,
-                                    Manifest.permission.ACCESS_COARSE_LOCATION
                                 )
-                            )
+                            } else {
+                                customerLocationPermissionLauncher.launch(
+                                    arrayOf(
+                                        Manifest.permission.ACCESS_FINE_LOCATION,
+                                        Manifest.permission.ACCESS_COARSE_LOCATION
+                                    )
+                                )
+                            }
+                        },
+                        isLoading = uiState.isLoading
+                    )
+                }
+
+                composable(Routes.AvailableRides) {
+                    AvailableRidesScreen(
+                        drivers = uiState.nearbyDrivers,
+                        selectedDriver = uiState.selectedDriver,
+                        onContactDriver = viewModel::selectDriver,
+                        onDismissBottomSheet = viewModel::dismissSelectedDriver,
+                        isLoading = uiState.isLoading
+                    )
+                }
+
+                composable(Routes.DriverVerification) {
+                    DriverVerificationScreen(
+                        phoneNumber = uiState.driverPhoneNumber,
+                        plateNumber = uiState.driverPlateNumber,
+                        onPhoneNumberChanged = viewModel::onDriverPhoneChanged,
+                        onPlateNumberChanged = viewModel::onDriverPlateChanged,
+                        onLoginClick = {
+                            viewModel.loginDriver {
+                                navController.navigate(Routes.DriverDashboard)
+                            }
+                        },
+                        isLoading = uiState.isLoading
+                    )
+                }
+
+                composable(Routes.DriverDashboard) {
+                    DriverDashboardScreen(
+                        driver = uiState.loggedInDriver,
+                        isLoading = uiState.isLoading,
+                        onUseLocationClicked = viewModel::updateDriverLocation,
+                        onSetAvailability = viewModel::setDriverAvailability,
+                        showMessage = { message ->
+                            viewModel.showAppMessage(message)
                         }
-                    },
-                    isLoading = uiState.isLoading
-                )
-            }
-
-            composable(Routes.AvailableRides) {
-                AvailableRidesScreen(
-                    drivers = uiState.nearbyDrivers,
-                    selectedDriver = uiState.selectedDriver,
-                    onContactDriver = viewModel::selectDriver,
-                    onDismissBottomSheet = viewModel::dismissSelectedDriver,
-                    isLoading = uiState.isLoading
-                )
-            }
-
-            composable(Routes.DriverVerification) {
-                DriverVerificationScreen(
-                    phoneNumber = uiState.driverPhoneNumber,
-                    plateNumber = uiState.driverPlateNumber,
-                    onPhoneNumberChanged = viewModel::onDriverPhoneChanged,
-                    onPlateNumberChanged = viewModel::onDriverPlateChanged,
-                    onLoginClick = {
-                        viewModel.loginDriver {
-                            navController.navigate(Routes.DriverDashboard)
-                        }
-                    },
-                    isLoading = uiState.isLoading
-                )
-            }
-
-            composable(Routes.DriverDashboard) {
-                DriverDashboardScreen(
-                    driver = uiState.loggedInDriver,
-                    isLoading = uiState.isLoading,
-                    onUseLocationClicked = viewModel::updateDriverLocation,
-                    onSetAvailability = viewModel::setDriverAvailability,
-                    showMessage = { message ->
-                        viewModel.showAppMessage(message)
-                    }
-                )
+                    )
+                }
             }
         }
     }
