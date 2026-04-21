@@ -82,4 +82,11 @@ dependencies {
 
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // Unit testing
+    testImplementation("junit:junit:4.13.2")
+    // Coroutines testing
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    // Flow testing
+    testImplementation("app.cash.turbine:turbine:1.0.0")
 }
