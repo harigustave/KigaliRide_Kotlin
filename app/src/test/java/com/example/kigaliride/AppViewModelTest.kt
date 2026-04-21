@@ -80,23 +80,18 @@ class AppViewModelTest {
     }
 
     // WRONG MODEL DETECTION TEST
-
     @Test
-    fun updateCustomerLocation_withoutServiceType_shouldShowError() {
-        viewModel.updateCustomerLocationAndFetchDrivers(
-            latitude = 1.0,
-            longitude = 1.0,
-            onSuccess = {}
-        )
+    fun loginDriver_withBlankInputs_shouldShowErrorMessage() {
+        viewModel.loginDriver(onSuccess = {})
 
         val state = viewModel.uiState.value
 
         assertEquals(
-            "Please choose a ride service first",
+            "Please enter phone number and plate number",
             state.snackbarMessage
         )
     }
-    
+
     // HELPER
 
     private fun createDummyDriver() =
