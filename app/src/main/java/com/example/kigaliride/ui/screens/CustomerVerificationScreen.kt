@@ -53,6 +53,8 @@ import com.example.kigaliride.ui.components.AppHeader
 import com.example.kigaliride.ui.theme.SpaceGrotesk
 import com.example.kigaliride.ui.viewmodel.AppViewModel
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun CustomerVerificationScreen(
@@ -60,6 +62,7 @@ fun CustomerVerificationScreen(
     viewModel: AppViewModel
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(uiState.snackbarMessage) {
@@ -315,27 +318,41 @@ fun CustomerVerificationScreen(
 
                             Button(
                                 onClick = {
-                                    viewModel.loginCustomer(
-                                        onSuccess = {
+                                    if (!uiState.showOtpField) {
+                                        viewModel.loginCustomer(context) {
                                             navController.navigate("choose_service")
                                         }
-                                    )
+                                    } else {
+                                        viewModel.verifyOtp {
+                                            navController.navigate("choose_service")
+                                        }
+                                    }
                                 },
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(64.dp),
                                 shape = RoundedCornerShape(32.dp),
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color(0xFF00FF43)
-                                )
+                                    containerColor = Color(0xFF00FF43),
+                                    disabledContainerColor = Color(0xFF4A4A4A)
+                                ),
+                                enabled = !uiState.isLoading
                             ) {
-                                Text(
-                                    text = "VERIFY HERE",
-                                    color = Color.Black,
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    fontFamily = SpaceGrotesk
-                                )
+                                if (uiState.isLoading) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(22.dp),
+                                        color = Color.Black,
+                                        strokeWidth = 2.5.dp
+                                    )
+                                } else {
+                                    Text(
+                                        text = if (uiState.showOtpField) "VERIFY HERE" else "CONTINUE",
+                                        color = Color.Black,
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = SpaceGrotesk
+                                    )
+                                }
                             }
                         }
                     }

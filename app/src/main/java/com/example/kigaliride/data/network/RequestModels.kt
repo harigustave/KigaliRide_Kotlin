@@ -49,3 +49,11 @@ data class SetAvailabilityRequest(
     @SerializedName("is_available")
     val isAvailable: Boolean
 )
+
+data class VerifyOtpRequest(
+    @SerializedName("phone_number")
+    val phoneNumber: String,
+
+    @SerializedName("otp")
+    val otp: String
+)

@@ -63,6 +63,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Message
 import coil.compose.AsyncImage
+import androidx.compose.material.icons.filled.LocalShipping
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -275,6 +276,16 @@ fun RideCard(
     onContactClick: () -> Unit
 ) {
     val serviceType = driver.serviceType.orEmpty()
+
+    val isRelocationCar = serviceType.equals("Relocation Car", ignoreCase = true)
+
+    val capacityLabel = if (isRelocationCar) {
+        val capacity = driver.carCapacity ?: 0
+        "%,d Kg".format(capacity)
+    } else {
+        "${driver.carCapacity ?: 0} Seats"
+    }
+
     val carMake = driver.carMake.orEmpty()
     val carModel = driver.carModel.orEmpty()
     val carColor = driver.carColor.orEmpty()
@@ -426,14 +437,16 @@ fun RideCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.Person,
-                        contentDescription = "Seats",
+                        imageVector = if (isRelocationCar) Icons.Filled.LocalShipping else Icons.Filled.Person,
+                        contentDescription = if (isRelocationCar) "Capacity in Kg" else "Seats",
                         tint = Color(0xFF00FF43),
                         modifier = Modifier.size(18.dp)
                     )
+
                     Spacer(modifier = Modifier.width(6.dp))
+
                     Text(
-                        text = "${driver.carCapacity} Seats",
+                        text = capacityLabel,
                         color = Color(0xFFEDEDED),
                         fontFamily = SpaceGrotesk,
                         fontSize = 15.sp

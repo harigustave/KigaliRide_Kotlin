@@ -45,17 +45,22 @@ fun KigaliRideApp(viewModel: AppViewModel = viewModel()) {
     ) { permissions ->
         val allGranted = permissions.values.all { it }
         if (allGranted) {
+            viewModel.showRideSearchLoading()
+
             getHighAccuracyLocation(
                 context = context,
                 onSuccess = { latitude, longitude ->
                     viewModel.updateCustomerLocationAndFetchDrivers(latitude, longitude) {
-                        // do nothing
+                        navController.navigate(Routes.AvailableRides)
                     }
-                    navController.navigate(Routes.AvailableRides)
                 },
-                onFailure = { viewModel.showAppMessage(it) }
+                onFailure = {
+                    viewModel.hideRideSearchLoading()
+                    viewModel.showAppMessage(it)
+                }
             )
         } else {
+            viewModel.hideRideSearchLoading()
             viewModel.showAppMessage("Location permission is required")
         }
     }
@@ -95,19 +100,17 @@ fun KigaliRideApp(viewModel: AppViewModel = viewModel()) {
                         onServiceSelected = viewModel::chooseServiceType,
                         onContinueClick = {
                             if (hasLocationPermission(context)) {
+                                viewModel.showRideSearchLoading()
+
                                 getHighAccuracyLocation(
                                     context = context,
                                     onSuccess = { latitude, longitude ->
-
-                                        // Start fetching drivers
                                         viewModel.updateCustomerLocationAndFetchDrivers(latitude, longitude) {
-                                            // do nothing
+                                            navController.navigate(Routes.AvailableRides)
                                         }
-
-                                        // Navigate immediately
-                                        navController.navigate(Routes.AvailableRides)
                                     },
                                     onFailure = { message ->
+                                        viewModel.hideRideSearchLoading()
                                         viewModel.showAppMessage(message)
                                     }
                                 )
@@ -141,7 +144,7 @@ fun KigaliRideApp(viewModel: AppViewModel = viewModel()) {
                         onPhoneNumberChanged = viewModel::onDriverPhoneChanged,
                         onPlateNumberChanged = viewModel::onDriverPlateChanged,
                         onLoginClick = {
-                            viewModel.loginDriver {
+                            viewModel.loginDriver(context) {
                                 navController.navigate(Routes.DriverDashboard)
                             }
                         },

@@ -176,11 +176,26 @@ fun ChooseRideServiceScreen(
                 enabled = selectedService.isNotBlank() && !isLoading
             ) {
                 if (isLoading) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(22.dp),
-                        color = Color.Black,
-                        strokeWidth = 2.5.dp
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(22.dp),
+                            color = Color.Black,
+                            strokeWidth = 2.5.dp
+                        )
+
+                        Spacer(modifier = Modifier.size(10.dp))
+
+                        Text(
+                            text = "FINDING RIDES...",
+                            color = Color.Black,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = SpaceGrotesk
+                        )
+                    }
                 } else {
                     Text(
                         text = "FIND AVAILABLE RIDES",

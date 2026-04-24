@@ -252,22 +252,6 @@ fun DriverDashboardScreen(
                 }
             )
 
-//            Spacer(modifier = Modifier.height(14.dp))
-
-//            DriverDashboardSmallCard(
-//                title = "CAPACITY",
-//                value = "$carCapacity Passengers",
-//                icon = Icons.Filled.Groups
-//            )
-
-//            Spacer(modifier = Modifier.height(14.dp))
-//
-//            DriverDashboardSmallCard(
-//                title = "CONTACT",
-//                value = phone,
-//                icon = Icons.Filled.Phone
-//            )
-
             Spacer(modifier = Modifier.height(14.dp))
 
             DriverDashboardStatusCard(

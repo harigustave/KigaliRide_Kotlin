@@ -10,6 +10,7 @@ import com.example.kigaliride.data.network.DriverLoginRequest
 import com.example.kigaliride.data.network.RetrofitClient
 import com.example.kigaliride.data.network.SetAvailabilityRequest
 import retrofit2.Response
+import com.example.kigaliride.data.network.VerifyOtpRequest
 
 sealed class ApiResult<out T> {
     data class Success<T>(val data: T) : ApiResult<T>()
@@ -56,6 +57,24 @@ class KigaliRideRepository {
 
     suspend fun setDriverAvailability(carPlate: String, isAvailable: Boolean): ApiResult<DriverInfo> {
         return handleResponse(api.setDriverAvailability(SetAvailabilityRequest(carPlate, isAvailable)))
+    }
+
+    suspend fun registerCustomer(phoneNumber: String): ApiResult<CustomerInfo> {
+        return handleResponse(api.registerCustomer(CustomerLoginRequest(phoneNumber)))
+    }
+
+    suspend fun verifyOtp(phoneNumber: String, otp: String): ApiResult<CustomerInfo> {
+        return handleResponse(api.verifyOtp(VerifyOtpRequest(phoneNumber, otp)))
+    }
+
+    suspend fun checkCustomerPhone(phoneNumber: String): Boolean {
+        val response = api.checkCustomerPhone(CustomerLoginRequest(phoneNumber))
+        return response.body()?.get("exists") == true
+    }
+
+    suspend fun checkDriverAccount(phone: String, plate: String): Boolean {
+        val response = api.checkDriverAccount(DriverLoginRequest(plate, phone))
+        return response.body()?.get("exists") == true
     }
 
     private fun <T> handleResponse(response: Response<T>): ApiResult<T> {

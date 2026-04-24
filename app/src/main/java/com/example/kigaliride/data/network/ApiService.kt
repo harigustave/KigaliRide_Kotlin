@@ -26,4 +26,24 @@ interface ApiService {
 
     @PUT("api/drivers/set-availability")
     suspend fun setDriverAvailability(@Body request: SetAvailabilityRequest): Response<DriverInfo>
+
+    @POST("api/customers/register")
+    suspend fun registerCustomer(
+        @Body request: CustomerLoginRequest
+    ): Response<CustomerInfo>
+
+    @POST("api/customers/verify-otp")
+    suspend fun verifyOtp(
+        @Body request: VerifyOtpRequest
+    ): Response<CustomerInfo>
+
+    @POST("api/customers/check-phone")
+    suspend fun checkCustomerPhone(
+        @Body request: CustomerLoginRequest
+    ): Response<Map<String, Boolean>>
+
+    @POST("api/drivers/check-account")
+    suspend fun checkDriverAccount(
+        @Body request: DriverLoginRequest
+    ): Response<Map<String, Boolean>>
 }
