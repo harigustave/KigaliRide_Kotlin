@@ -109,7 +109,7 @@ fun WelcomeScreen(navController: NavController) {
 
             // Customer card button.
             CustomerWelcomeCard(
-                onClick = { navController.navigate("customer_verification") }
+                onClick = { navController.navigate("choose_service") }
             )
 
             Spacer(modifier = Modifier.height(14.dp))

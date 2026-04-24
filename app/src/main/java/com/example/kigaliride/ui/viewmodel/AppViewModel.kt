@@ -132,14 +132,33 @@ class AppViewModel(
                     _uiState.update { it.copy(isLoading = false) }
                     showAppMessage("This phone number is already linked to another device.")
                 } else {
-                    // New user → register + save device
-                    when (val registerResult = repository.registerCustomer(normalizedPhone)) {
+                    // New user → register with passcode + save device
+
+                    val passcode = uiState.value.customerOtp
+
+                    if (passcode.length != 6) {
+                        _uiState.update { it.copy(isLoading = false) }
+                        showAppMessage("Enter a 6-digit passcode")
+                        return@launch
+                    }
+
+                    when (val registerResult = repository.registerCustomer(normalizedPhone, passcode)) {
                         is ApiResult.Success -> {
                             DevicePrefs.saveCustomerPhone(context, normalizedPhone)
-                            showOtpField()
-                            _uiState.update { it.copy(isLoading = false) }
-                            showAppMessage("OTP sent to your phone")
+                            DevicePrefs.savePasscode(context, passcode)
+
+                            hideOtpField()
+
+                            _uiState.update {
+                                it.copy(
+                                    isLoading = false,
+                                    loggedInCustomer = registerResult.data
+                                )
+                            }
+
+                            onSuccess()
                         }
+
                         is ApiResult.Error -> {
                             _uiState.update { it.copy(isLoading = false) }
                             showAppMessage(registerResult.message)
@@ -150,22 +169,24 @@ class AppViewModel(
         }
     }
 
-    fun verifyOtp(onSuccess: () -> Unit) {
+    fun verifyPasscode(context: Context, onSuccess: () -> Unit) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
 
             val phone = normalizeRwandaPhoneNumber(uiState.value.customerPhoneNumber)
-            val otp = uiState.value.customerOtp
+            val passcode = uiState.value.customerOtp
 
-            if (phone == null) {
+            if (phone == null || passcode.length != 6) {
                 _uiState.update { it.copy(isLoading = false) }
-                showAppMessage("Enter a valid MTN or Airtel phone number")
+                showAppMessage("Enter valid phone and 6-digit passcode")
                 return@launch
             }
 
-            when (val result = repository.verifyOtp(phone, otp)) {
+            when (val result = repository.verifyPasscode(phone, passcode)) {
                 is ApiResult.Success -> {
-                    hideOtpField()
+                    DevicePrefs.saveCustomerPhone(context, phone)
+                    DevicePrefs.savePasscode(context, passcode)
+
                     _uiState.update {
                         it.copy(
                             isLoading = false,
@@ -177,9 +198,37 @@ class AppViewModel(
 
                 is ApiResult.Error -> {
                     _uiState.update { it.copy(isLoading = false) }
-                    showAppMessage("Invalid phone number OR OTP")
+                    showAppMessage("Invalid passcode")
                 }
             }
+        }
+    }
+
+    fun getAddressFromLocation(
+        context: Context,
+        latitude: Double,
+        longitude: Double,
+        onResult: (String) -> Unit
+    ) {
+        try {
+            val geocoder = android.location.Geocoder(context)
+            val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+
+            if (!addresses.isNullOrEmpty()) {
+                val address = addresses[0]
+
+                val locationName = listOfNotNull(
+                    address.subLocality,   // e.g. Kacyiru
+                    address.locality       // e.g. Kigali
+                ).joinToString(", ")
+
+                onResult(locationName)
+            } else {
+                onResult("Unknown location")
+            }
+
+        } catch (e: Exception) {
+            onResult("Location unavailable")
         }
     }
 
@@ -200,44 +249,31 @@ class AppViewModel(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
 
-            val savedPhone = DevicePrefs.getDriverPhone(context)
-            val savedPlate = DevicePrefs.getDriverPlate(context)
-
-            if (savedPhone == phone && savedPlate == plate) {
-                // Trusted device
-                when (val result = repository.loginDriver(plate, phone)) {
-                    is ApiResult.Success -> {
-                        _uiState.update {
-                            it.copy(isLoading = false, loggedInDriver = result.data)
-                        }
-                        onSuccess()
+            when (val result = repository.loginDriver(plate, phone)) {
+                is ApiResult.Success -> {
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            loggedInDriver = result.data,
+                            driverPhoneNumber = phone,
+                            driverPlateNumber = plate
+                        )
                     }
-                    is ApiResult.Error -> {
-                        _uiState.update { it.copy(isLoading = false) }
-                        showAppMessage(result.message)
-                    }
+                    onSuccess()
                 }
-            } else {
-                val exists = repository.checkDriverAccount(phone, plate)
 
-                if (exists) {
-                    _uiState.update { it.copy(isLoading = false) }
-                    showAppMessage("This driver account is already linked to another device.")
-                } else {
-                    // New driver → allow + save device
-                    DevicePrefs.saveDriver(context, phone, plate)
+                is ApiResult.Error -> {
+                    val message = if (result.message.contains("Phone number or driver details")) {
+                        "Driver not found"
+                    } else {
+                        result.message
+                    }
 
-                    when (val result = repository.loginDriver(plate, phone)) {
-                        is ApiResult.Success -> {
-                            _uiState.update {
-                                it.copy(isLoading = false, loggedInDriver = result.data)
-                            }
-                            onSuccess()
-                        }
-                        is ApiResult.Error -> {
-                            _uiState.update { it.copy(isLoading = false) }
-                            showAppMessage(result.message)
-                        }
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            snackbarMessage = message
+                        )
                     }
                 }
             }
@@ -249,8 +285,8 @@ class AppViewModel(
         longitude: Double,
         onSuccess: () -> Unit
     ) {
-        val phone = uiState.value.loggedInCustomer?.phoneNumber ?: return
         val service = uiState.value.selectedServiceType
+
         if (service.isBlank()) {
             showSnackbar("Please choose a ride service first")
             return
@@ -259,23 +295,7 @@ class AppViewModel(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
 
-            when (val locationResult = repository.updateCustomerLocation(phone, latitude, longitude)) {
-                is ApiResult.Success -> {
-                    _uiState.update {
-                        it.copy(
-                            customerLatitude = latitude,
-                            customerLongitude = longitude,
-                            loggedInCustomer = locationResult.data
-                        )
-                    }
-                }
-                is ApiResult.Error -> {
-                    _uiState.update { it.copy(isLoading = false, snackbarMessage = locationResult.message) }
-                    return@launch
-                }
-            }
-
-            when (val driversResult = repository.getClosestDrivers(latitude, longitude, phone, service)) {
+            when (val driversResult = repository.getClosestDrivers(latitude, longitude, service)) {
                 is ApiResult.Success -> {
                     _uiState.update {
                         it.copy(
@@ -285,14 +305,13 @@ class AppViewModel(
                     }
                     onSuccess()
                 }
+
                 is ApiResult.Error -> {
                     _uiState.update {
                         it.copy(
                             isLoading = false,
                             nearbyDrivers = emptyList(),
-                            snackbarMessage = if (driversResult.message.contains("Phone number or driver details")) {
-                                "No drivers found in this location"
-                            } else driversResult.message
+                            snackbarMessage = "No drivers found in this location"
                         )
                     }
                 }

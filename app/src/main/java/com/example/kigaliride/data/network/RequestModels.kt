@@ -37,8 +37,6 @@ data class ClosestDriversRequest(
     val latitude: Double,
     @SerializedName("longitude")
     val longitude: Double,
-    @SerializedName("phone_number")
-    val phoneNumber: String,
     @SerializedName("service_type")
     val serviceType: String
 )
@@ -56,4 +54,12 @@ data class VerifyOtpRequest(
 
     @SerializedName("otp")
     val otp: String
+)
+
+data class PasscodeRequest(
+    @SerializedName("phone_number")
+    val phoneNumber: String,
+
+    @SerializedName("passcode")
+    val passcode: String
 )

@@ -10,7 +10,7 @@ import com.example.kigaliride.data.network.DriverLoginRequest
 import com.example.kigaliride.data.network.RetrofitClient
 import com.example.kigaliride.data.network.SetAvailabilityRequest
 import retrofit2.Response
-import com.example.kigaliride.data.network.VerifyOtpRequest
+import com.example.kigaliride.data.network.PasscodeRequest
 
 sealed class ApiResult<out T> {
     data class Success<T>(val data: T) : ApiResult<T>()
@@ -32,7 +32,6 @@ class KigaliRideRepository {
     suspend fun getClosestDrivers(
         latitude: Double,
         longitude: Double,
-        phoneNumber: String,
         serviceType: String
     ): ApiResult<List<DriverInfo>> {
         return handleResponse(
@@ -40,7 +39,6 @@ class KigaliRideRepository {
                 ClosestDriversRequest(
                     latitude = latitude,
                     longitude = longitude,
-                    phoneNumber = phoneNumber,
                     serviceType = serviceType
                 )
             )
@@ -59,14 +57,13 @@ class KigaliRideRepository {
         return handleResponse(api.setDriverAvailability(SetAvailabilityRequest(carPlate, isAvailable)))
     }
 
-    suspend fun registerCustomer(phoneNumber: String): ApiResult<CustomerInfo> {
-        return handleResponse(api.registerCustomer(CustomerLoginRequest(phoneNumber)))
+    suspend fun registerCustomer(phoneNumber: String, passcode: String): ApiResult<CustomerInfo> {
+        return handleResponse(api.registerCustomer(PasscodeRequest(phoneNumber, passcode)))
     }
 
-    suspend fun verifyOtp(phoneNumber: String, otp: String): ApiResult<CustomerInfo> {
-        return handleResponse(api.verifyOtp(VerifyOtpRequest(phoneNumber, otp)))
+    suspend fun verifyPasscode(phone: String, passcode: String): ApiResult<CustomerInfo> {
+        return handleResponse(api.verifyPasscode(PasscodeRequest(phone, passcode)))
     }
-
     suspend fun checkCustomerPhone(phoneNumber: String): Boolean {
         val response = api.checkCustomerPhone(CustomerLoginRequest(phoneNumber))
         return response.body()?.get("exists") == true

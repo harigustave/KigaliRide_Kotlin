@@ -38,4 +38,18 @@ object DevicePrefs {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
             .getString(KEY_DRIVER_PLATE, null)
     }
+
+    private const val KEY_PASSCODE = "passcode"
+
+    fun savePasscode(context: Context, passcode: String) {
+        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+            .edit()
+            .putString(KEY_PASSCODE, passcode)
+            .apply()
+    }
+
+    fun getPasscode(context: Context): String? {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+            .getString(KEY_PASSCODE, null)
+    }
 }

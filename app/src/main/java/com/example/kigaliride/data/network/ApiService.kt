@@ -29,12 +29,12 @@ interface ApiService {
 
     @POST("api/customers/register")
     suspend fun registerCustomer(
-        @Body request: CustomerLoginRequest
+        @Body request: PasscodeRequest
     ): Response<CustomerInfo>
 
-    @POST("api/customers/verify-otp")
-    suspend fun verifyOtp(
-        @Body request: VerifyOtpRequest
+    @POST("api/customers/verify-passcode")
+    suspend fun verifyPasscode(
+        @Body request: PasscodeRequest
     ): Response<CustomerInfo>
 
     @POST("api/customers/check-phone")
