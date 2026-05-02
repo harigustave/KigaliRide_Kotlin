@@ -11,7 +11,8 @@ data class DriverLoginRequest(
     @SerializedName("car_plate")
     val carPlate: String,
     @SerializedName("phone_number")
-    val phoneNumber: String
+    val phoneNumber: String,
+    val device_id: String
 )
 
 data class CustomerLocationRequest(

@@ -7,6 +7,7 @@ import com.example.kigaliride.data.model.CustomerInfo
 import com.example.kigaliride.data.model.DriverInfo
 import com.example.kigaliride.data.repository.ApiResult
 import com.example.kigaliride.data.repository.KigaliRideRepository
+import com.example.kigaliride.utils.DeviceIdManager
 import com.example.kigaliride.utils.DevicePrefs
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -236,43 +237,32 @@ class AppViewModel(
         val phone = validateDriverPhoneNumber()
         val plate = uiState.value.driverPlateNumber.trim()
 
-        if (phone == null) {
-            showSnackbar("Enter a valid MTN or Airtel phone number")
+        if (phone == null || plate.isBlank()) {
+            showSnackbar("Please enter phone number and plate number")
             return
         }
 
-        if (plate.isBlank()) {
-            showSnackbar("Please enter plate number")
-            return
-        }
+        val deviceId = DeviceIdManager.getDeviceId(context)
 
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
 
-            when (val result = repository.loginDriver(plate, phone)) {
+            when (val result = repository.loginDriver(plate, phone, deviceId)) {
                 is ApiResult.Success -> {
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            loggedInDriver = result.data,
-                            driverPhoneNumber = phone,
-                            driverPlateNumber = plate
+                            loggedInDriver = result.data
                         )
                     }
                     onSuccess()
                 }
 
                 is ApiResult.Error -> {
-                    val message = if (result.message.contains("Phone number or driver details")) {
-                        "Driver not found"
-                    } else {
-                        result.message
-                    }
-
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            snackbarMessage = message
+                            snackbarMessage = result.message
                         )
                     }
                 }

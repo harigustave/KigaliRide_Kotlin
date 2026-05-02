@@ -1,34 +1,114 @@
 [
     {
-        "merged": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-debug-69:\\drawable_dummy_car.jpg.flat",
-        "source": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-main-71:\\drawable\\dummy_car.jpg"
-    },
-    {
-        "merged": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-debug-69:\\drawable_welcome_bg.png.flat",
-        "source": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-main-71:\\drawable\\welcome_bg.png"
-    },
-    {
-        "merged": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-debug-69:\\font_space_grotesk_bold.ttf.flat",
-        "source": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-main-71:\\font\\space_grotesk_bold.ttf"
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
         "merged": "com.example.kigaliride.app-debug-69:/drawable_map_placeholder.png.flat",
         "source": "com.example.kigaliride.app-main-71:/drawable/map_placeholder.png"
     },
     {
-        "merged": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-debug-69:\\drawable_car_dummy.png.flat",
-        "source": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-main-71:\\drawable\\car_dummy.png"
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-xxhdpi_ic_launcher_background.png.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-xxhdpi/ic_launcher_background.png"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/font_space_grotesk_bold.ttf.flat",
+        "source": "com.example.kigaliride.app-main-71:/font/space_grotesk_bold.ttf"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-mdpi_ic_launcher_background.png.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-mdpi/ic_launcher_background.png"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/font_space_grotesk_regular.ttf.flat",
+        "source": "com.example.kigaliride.app-main-71:/font/space_grotesk_regular.ttf"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/drawable_welcome_bg.png.flat",
+        "source": "com.example.kigaliride.app-main-71:/drawable/welcome_bg.png"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-hdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-hdpi_ic_launcher_background.png.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-hdpi/ic_launcher_background.png"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-xxxhdpi_ic_launcher_background.png.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-xxxhdpi/ic_launcher_background.png"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-xhdpi_ic_launcher_background.png.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-xhdpi/ic_launcher_background.png"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/font_space_grotesk_medium.ttf.flat",
+        "source": "com.example.kigaliride.app-main-71:/font/space_grotesk_medium.ttf"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
         "merged": "com.example.kigaliride.app-debug-69:/drawable_driver_avatar.png.flat",
         "source": "com.example.kigaliride.app-main-71:/drawable/driver_avatar.png"
     },
     {
-        "merged": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-debug-69:\\font_space_grotesk_regular.ttf.flat",
-        "source": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-main-71:\\font\\space_grotesk_regular.ttf"
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-xhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-debug-69:\\font_space_grotesk_medium.ttf.flat",
-        "source": "C:\\Users\\gharintwari\\.gradle\\daemon\\9.0.0\\com.example.kigaliride.app-main-71:\\font\\space_grotesk_medium.ttf"
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-mdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.kigaliride.app-debug-69:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.kigaliride.app-main-71:/mipmap-xxxhdpi/ic_launcher_round.webp"
     }
 ]
