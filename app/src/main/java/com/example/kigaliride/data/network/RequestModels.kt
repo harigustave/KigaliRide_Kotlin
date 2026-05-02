@@ -11,7 +11,8 @@ data class DriverLoginRequest(
     @SerializedName("car_plate")
     val carPlate: String,
     @SerializedName("phone_number")
-    val phoneNumber: String
+    val phoneNumber: String,
+    val device_id: String
 )
 
 data class CustomerLocationRequest(
@@ -37,8 +38,6 @@ data class ClosestDriversRequest(
     val latitude: Double,
     @SerializedName("longitude")
     val longitude: Double,
-    @SerializedName("phone_number")
-    val phoneNumber: String,
     @SerializedName("service_type")
     val serviceType: String
 )
@@ -56,4 +55,12 @@ data class VerifyOtpRequest(
 
     @SerializedName("otp")
     val otp: String
+)
+
+data class PasscodeRequest(
+    @SerializedName("phone_number")
+    val phoneNumber: String,
+
+    @SerializedName("passcode")
+    val passcode: String
 )

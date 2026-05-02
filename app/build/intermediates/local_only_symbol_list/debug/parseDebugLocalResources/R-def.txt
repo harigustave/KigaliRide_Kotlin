@@ -1,10 +1,15 @@
 R_DEF: Internal format may change without notice
 local
+color ic_launcher_background
 drawable driver_avatar
 drawable map_placeholder
 drawable welcome_bg
 font space_grotesk_bold
 font space_grotesk_medium
 font space_grotesk_regular
+mipmap ic_launcher
+mipmap ic_launcher_background
+mipmap ic_launcher_foreground
+mipmap ic_launcher_round
 string app_name
 style Theme.KigaliRide

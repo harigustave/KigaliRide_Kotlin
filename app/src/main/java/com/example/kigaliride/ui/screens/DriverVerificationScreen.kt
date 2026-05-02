@@ -190,14 +190,14 @@ fun DriverVerificationScreen(
                                     fontWeight = FontWeight.Medium,
                                     fontFamily = SpaceGrotesk
                                 )
-
-                                Text(
-                                    text = "FORGOT?",
-                                    color = Color(0xFF00FF5A),
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.Medium,
-                                    fontFamily = SpaceGrotesk
-                                )
+//
+//                                Text(
+//                                    text = "FORGOT?",
+//                                    color = Color(0xFF00FF5A),
+//                                    fontSize = 12.sp,
+//                                    fontWeight = FontWeight.Medium,
+//                                    fontFamily = SpaceGrotesk
+//                                )
                             }
 
                             Spacer(modifier = Modifier.height(12.dp))

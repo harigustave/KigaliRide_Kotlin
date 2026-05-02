@@ -203,55 +203,52 @@ fun CustomerVerificationScreen(
 
                             Spacer(modifier = Modifier.height(15.dp))
 
-                            if (uiState.showOtpField) {
-                                Text(
-                                    text = "OTP CODE",
-                                    color = Color(0xFFA5A5A5),
-                                    fontSize = 12.sp,
-                                    letterSpacing = 1.sp,
-                                    fontWeight = FontWeight.Medium,
-                                    fontFamily = SpaceGrotesk
-                                )
+                            Text(
+                                text = "CREATE PASSCODE",
+                                color = Color(0xFFA5A5A5),
+                                fontSize = 12.sp,
+                                letterSpacing = 1.sp,
+                                fontWeight = FontWeight.Medium,
+                                fontFamily = SpaceGrotesk
+                            )
 
-                                Spacer(modifier = Modifier.height(12.dp))
+                            Spacer(modifier = Modifier.height(12.dp))
 
-                                OutlinedTextField(
-                                    value = uiState.customerOtp,
-                                    onValueChange = { viewModel.onCustomerOtpChanged(it) },
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(68.dp),
-                                    placeholder = {
-                                        Text(
-                                            text = "Enter OTP Code",
-                                            color = Color(0xFF4F4F4F),
-                                            fontFamily = SpaceGrotesk
-                                        )
-                                    },
-                                    leadingIcon = {
-                                        Icon(
-                                            imageVector = Icons.Filled.Lock,
-                                            contentDescription = "OTP",
-                                            tint = Color(0xFFBFBFBF),
-                                            modifier = Modifier.size(20.dp)
-                                        )
-                                    },
-                                    singleLine = true,
-                                    enabled = uiState.isOtpEnabled,
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                    shape = RoundedCornerShape(12.dp),
-                                    colors = OutlinedTextFieldDefaults.colors(
-                                        focusedContainerColor = Color.Black,
-                                        unfocusedContainerColor = Color.Black,
-                                        disabledContainerColor = Color.Black,
-                                        focusedBorderColor = Color.Black,
-                                        unfocusedBorderColor = Color.Black,
-                                        cursorColor = Color(0xFF00FF5A),
-                                        focusedTextColor = Color.White,
-                                        unfocusedTextColor = Color.White
+                            OutlinedTextField(
+                                value = uiState.customerOtp,
+                                onValueChange = { viewModel.onCustomerOtpChanged(it) },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(68.dp),
+                                placeholder = {
+                                    Text(
+                                        text = "Enter 6-digit passcode",
+                                        color = Color(0xFF4F4F4F),
+                                        fontFamily = SpaceGrotesk
                                     )
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Filled.Lock,
+                                        contentDescription = "Passcode",
+                                        tint = Color(0xFFBFBFBF),
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                },
+                                singleLine = true,
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                shape = RoundedCornerShape(12.dp),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedContainerColor = Color.Black,
+                                    unfocusedContainerColor = Color.Black,
+                                    disabledContainerColor = Color.Black,
+                                    focusedBorderColor = Color.Black,
+                                    unfocusedBorderColor = Color.Black,
+                                    cursorColor = Color(0xFF00FF5A),
+                                    focusedTextColor = Color.White,
+                                    unfocusedTextColor = Color.White
                                 )
-                            }
+                            )
 
                             Spacer(modifier = Modifier.height(15.dp))
 
@@ -323,7 +320,7 @@ fun CustomerVerificationScreen(
                                             navController.navigate("choose_service")
                                         }
                                     } else {
-                                        viewModel.verifyOtp {
+                                        viewModel.verifyPasscode(context) {
                                             navController.navigate("choose_service")
                                         }
                                     }

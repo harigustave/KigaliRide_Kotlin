@@ -1,6 +1,8 @@
 package com.example.kigaliride.ui.screens
 
 import android.Manifest
+import android.content.Context
+import android.location.Geocoder
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -23,10 +25,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DirectionsCar
-import androidx.compose.material.icons.filled.Groups
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -37,6 +36,11 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,6 +56,7 @@ import com.example.kigaliride.R
 import com.example.kigaliride.data.model.DriverInfo
 import com.example.kigaliride.ui.components.AppHeader
 import com.example.kigaliride.ui.theme.SpaceGrotesk
+import java.util.Locale
 
 @Composable
 fun DriverDashboardScreen(
@@ -82,16 +87,12 @@ fun DriverDashboardScreen(
     val carModel = driver?.carModel.orEmpty()
     val carPlate = driver?.carPlate.orEmpty()
     val carColor = driver?.carColor.orEmpty()
-    val phone = driver?.phoneNumber.orEmpty()
     val serviceType = driver?.serviceType.orEmpty()
-    val carCapacity = driver?.carCapacity?.toString() ?: "N/A"
     val isAvailable = driver?.isAvailable == true
 
     val scrollState = rememberScrollState()
 
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.welcome_bg),
             contentDescription = "Background",
@@ -133,24 +134,6 @@ fun DriverDashboardScreen(
                 )
 
                 Spacer(modifier = Modifier.height(14.dp))
-
-                Text(
-                    text = "Paul",
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = SpaceGrotesk
-                )
-
-                Text(
-                    text = "Mutabazi",
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = SpaceGrotesk
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
 
                 Box(
                     modifier = Modifier
@@ -296,9 +279,7 @@ fun DriverDashboardScreen(
                 ),
                 enabled = !isLoading
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Filled.LocationOn,
                         contentDescription = "Location",
@@ -351,9 +332,7 @@ fun DriverDashboardMainCard(
                 .padding(20.dp)
         ) {
             Column {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     if (icon != null) {
                         Box(
                             modifier = Modifier
@@ -384,60 +363,6 @@ fun DriverDashboardMainCard(
                 Spacer(modifier = Modifier.height(14.dp))
 
                 content()
-            }
-        }
-    }
-}
-
-@Composable
-fun DriverDashboardSmallCard(
-    title: String,
-    value: String,
-    icon: androidx.compose.ui.graphics.vector.ImageVector
-) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF171717))
-    ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 18.dp, vertical = 18.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(38.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0xFF272727)),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = title,
-                    tint = Color(0xFFBFBFBF),
-                    modifier = Modifier.size(18.dp)
-                )
-            }
-
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Column {
-                Text(
-                    text = title,
-                    color = Color(0xFF8A8A8A),
-                    fontSize = 11.sp,
-                    fontFamily = SpaceGrotesk
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = value,
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontFamily = SpaceGrotesk
-                )
             }
         }
     }
@@ -517,9 +442,7 @@ fun DashboardRadioLine(
     text: String,
     selected: Boolean
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
         Box(
             modifier = Modifier
                 .size(10.dp)
@@ -543,6 +466,17 @@ fun DriverMapPlaceholderCard(
     latitude: Double?,
     longitude: Double?
 ) {
+    val context = LocalContext.current
+    var locationName by remember { mutableStateOf("Getting location...") }
+
+    LaunchedEffect(latitude, longitude) {
+        if (latitude != null && longitude != null) {
+            getAddressFromLocation(context, latitude, longitude) {
+                locationName = it
+            }
+        }
+    }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -550,9 +484,7 @@ fun DriverMapPlaceholderCard(
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFF12A8B0))
     ) {
-        Box(
-            modifier = Modifier.fillMaxSize()
-        ) {
+        Box(modifier = Modifier.fillMaxSize()) {
             Image(
                 painter = painterResource(id = R.drawable.map_placeholder),
                 contentDescription = "Map Placeholder",
@@ -592,7 +524,7 @@ fun DriverMapPlaceholderCard(
             ) {
                 Text(
                     text = if (latitude != null && longitude != null)
-                        "Driver Coordinates: %.5f, %.5f".format(latitude, longitude)
+                        "📍 $locationName"
                     else
                         "Location unavailable",
                     color = Color.White,
@@ -611,5 +543,37 @@ fun DriverMapPlaceholderCard(
                 )
             }
         }
+    }
+}
+
+fun getAddressFromLocation(
+    context: Context,
+    latitude: Double,
+    longitude: Double,
+    onResult: (String) -> Unit
+) {
+    try {
+        val geocoder = Geocoder(context, Locale.getDefault())
+        val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+
+        if (!addresses.isNullOrEmpty()) {
+            val address = addresses[0]
+
+            val locationName = listOfNotNull(
+                address.subLocality,
+                address.locality,
+                address.adminArea
+            ).joinToString(", ")
+
+            onResult(
+                locationName.ifBlank {
+                    address.getAddressLine(0) ?: "Unknown location"
+                }
+            )
+        } else {
+            onResult("Unknown location")
+        }
+    } catch (e: Exception) {
+        onResult("Location unavailable")
     }
 }
