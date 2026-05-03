@@ -1,0 +1,16 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Full black background -->
+    <item android:drawable="@android:color/black" />
+
+    <!-- Center logo -->
+    <item
+            android:width="160dp"
+            android:height="160dp"
+            android:gravity="center">
+        <bitmap
+                android:gravity="center"
+                android:src="@drawable/kigaliride_splash_logo" />
+    </item>
+
+</layer-list>

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.kigaliride.app-mergeDebugResources-67:/values-as/values-as.xml",
+            "outputFile": "com.example.kigaliride.app-mergeDebugResources-68:/values-as/values-as.xml",
             "map": [
                 {
                     "source": "C:\\Users\\gharintwari\\.gradle\\caches\\9.0.0\\transforms\\959ef6f32452861d6c34a4067f8d10b8\\transformed\\play-services-base-18.5.0\\res\\values-as\\values.xml",

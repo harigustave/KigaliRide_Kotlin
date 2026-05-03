@@ -31,7 +31,8 @@
         android:theme="@style/Theme.KigaliRide" >
         <activity
             android:name="com.example.kigaliride.MainActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/Theme.KigaliRide" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -3,7 +3,6 @@ package com.example.kigaliride
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.Surface
 import com.example.kigaliride.ui.navigation.KigaliRideApp
 import com.example.kigaliride.ui.theme.KigaliRideTheme
