@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.kigaliride.app-mergeDebugResources-67:/values-lv/values-lv.xml",
+            "outputFile": "com.example.kigaliride.app-mergeDebugResources-68:/values-lv/values-lv.xml",
             "map": [
                 {
                     "source": "C:\\Users\\gharintwari\\.gradle\\caches\\9.0.0\\transforms\\1d0e5c1acde81a0d7b5d5f4b5a338e85\\transformed\\foundation-release\\res\\values-lv\\values-lv.xml",
