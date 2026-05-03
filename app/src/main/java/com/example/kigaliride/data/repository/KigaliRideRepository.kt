@@ -86,11 +86,18 @@ class KigaliRideRepository {
         return if (response.isSuccessful && response.body() != null) {
             ApiResult.Success(response.body()!!)
         } else {
-            val message = when (response.code()) {
-                403 -> "Your subscription has expired. Please renew to proceed"
-                404 -> "Phone number or driver details not registered"
-                else -> response.errorBody()?.string() ?: "Something went wrong"
+            val message = try {
+                val errorBody = response.errorBody()?.string()
+                if (!errorBody.isNullOrEmpty()) {
+                    val json = org.json.JSONObject(errorBody)
+                    json.optString("message", "Something went wrong")
+                } else {
+                    "Something went wrong"
+                }
+            } catch (e: Exception) {
+                "Something went wrong"
             }
+
             ApiResult.Error(message)
         }
     }
