@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.kigaliride"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    package="com.examples.kigaliride"
+    android:versionCode="3"
+    android:versionName="3.0" >
 
     <uses-sdk
         android:minSdkVersion="24"
-        android:targetSdkVersion="34" />
+        android:targetSdkVersion="35" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <permission
-        android:name="com.example.kigaliride.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.examples.kigaliride.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.example.kigaliride.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.examples.kigaliride.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
         android:allowBackup="true"
@@ -27,10 +27,9 @@
         android:label="KigaliRide"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:testOnly="true"
         android:theme="@style/Theme.KigaliRide" >
         <activity
-            android:name="com.example.kigaliride.MainActivity"
+            android:name="com.examples.kigaliride.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.KigaliRide" >
             <intent-filter>
@@ -57,7 +56,7 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.example.kigaliride.androidx-startup"
+            android:authorities="com.examples.kigaliride.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"

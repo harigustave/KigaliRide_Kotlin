@@ -1,6 +1,6 @@
-//package com.example.kigaliride
+//package com.example.com.examples.kigaliride
 //
-//import com.example.kigaliride.ui.viewmodel.AppViewModel
+//import com.example.com.examples.kigaliride.ui.viewmodel.AppViewModel
 //import org.junit.Assert.*
 //import org.junit.Before
 //import org.junit.Test
@@ -95,7 +95,7 @@
 //    // HELPER
 //
 //    private fun createDummyDriver() =
-//        com.example.kigaliride.data.model.DriverInfo(
+//        com.example.com.examples.kigaliride.data.model.DriverInfo(
 //            id = 1,
 //            carPlate = "RAB123A",
 //            carMake = "Toyota",

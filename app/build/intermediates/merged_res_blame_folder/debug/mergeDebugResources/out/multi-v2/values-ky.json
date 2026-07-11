@@ -1,27 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.kigaliride.app-mergeDebugResources-68:/values-ky/values-ky.xml",
+            "outputFile": "com.examples.kigaliride.app-mergeDebugResources-68:/values-ky/values-ky.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\gharintwari\\.gradle\\caches\\9.0.0\\transforms\\b675e550b0e89e54ba4c716cfdf37c85\\transformed\\core-1.13.1\\res\\values-ky\\values-ky.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,155,257,360,467,571,675,786",
-                        "endColumns": "99,101,102,106,103,103,110,100",
-                        "endOffsets": "150,252,355,462,566,670,781,882"
-                    },
-                    "to": {
-                        "startLines": "38,39,40,41,42,43,44,204",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "3505,3605,3707,3810,3917,4021,4125,19641",
-                        "endColumns": "99,101,102,106,103,103,110,100",
-                        "endOffsets": "3600,3702,3805,3912,4016,4120,4231,19737"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\gharintwari\\.gradle\\caches\\9.0.0\\transforms\\355e1512e653554254f2bfbb857220f2\\transformed\\material-1.12.0\\res\\values-ky\\values-ky.xml",
+                    "source": "C:\\Users\\pc\\.gradle\\caches\\9.0.0\\transforms\\355e1512e653554254f2bfbb857220f2\\transformed\\material-1.12.0\\res\\values-ky\\values-ky.xml",
                     "from": {
                         "startLines": "2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -40,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\gharintwari\\.gradle\\caches\\9.0.0\\transforms\\959ef6f32452861d6c34a4067f8d10b8\\transformed\\play-services-base-18.5.0\\res\\values-ky\\values.xml",
+                    "source": "C:\\Users\\pc\\.gradle\\caches\\9.0.0\\transforms\\959ef6f32452861d6c34a4067f8d10b8\\transformed\\play-services-base-18.5.0\\res\\values-ky\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -57,24 +40,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\gharintwari\\.gradle\\caches\\9.0.0\\transforms\\1d0e5c1acde81a0d7b5d5f4b5a338e85\\transformed\\foundation-release\\res\\values-ky\\values-ky.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,154",
-                        "endColumns": "98,103",
-                        "endOffsets": "149,253"
-                    },
-                    "to": {
-                        "startLines": "208,209",
-                        "startColumns": "4,4",
-                        "startOffsets": "20007,20106",
-                        "endColumns": "98,103",
-                        "endOffsets": "20101,20205"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\gharintwari\\.gradle\\caches\\9.0.0\\transforms\\6bde208890495654ef4aeae4e0228d51\\transformed\\ui-release\\res\\values-ky\\values-ky.xml",
+                    "source": "C:\\Users\\pc\\.gradle\\caches\\9.0.0\\transforms\\6bde208890495654ef4aeae4e0228d51\\transformed\\ui-release\\res\\values-ky\\values-ky.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -91,7 +57,24 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\gharintwari\\.gradle\\caches\\9.0.0\\transforms\\7be4a7d84a2ff04f19d11d8092653c92\\transformed\\play-services-basement-18.4.0\\res\\values-ky\\values.xml",
+                    "source": "C:\\Users\\pc\\.gradle\\caches\\9.0.0\\transforms\\b675e550b0e89e54ba4c716cfdf37c85\\transformed\\core-1.13.1\\res\\values-ky\\values-ky.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,155,257,360,467,571,675,786",
+                        "endColumns": "99,101,102,106,103,103,110,100",
+                        "endOffsets": "150,252,355,462,566,670,781,882"
+                    },
+                    "to": {
+                        "startLines": "38,39,40,41,42,43,44,204",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "3505,3605,3707,3810,3917,4021,4125,19641",
+                        "endColumns": "99,101,102,106,103,103,110,100",
+                        "endOffsets": "3600,3702,3805,3912,4016,4120,4231,19737"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\pc\\.gradle\\caches\\9.0.0\\transforms\\7be4a7d84a2ff04f19d11d8092653c92\\transformed\\play-services-basement-18.4.0\\res\\values-ky\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -108,7 +91,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\gharintwari\\.gradle\\caches\\9.0.0\\transforms\\a92cdc0806beed3d5fe49cc718039b3a\\transformed\\appcompat-1.6.1\\res\\values-ky\\values-ky.xml",
+                    "source": "C:\\Users\\pc\\.gradle\\caches\\9.0.0\\transforms\\a92cdc0806beed3d5fe49cc718039b3a\\transformed\\appcompat-1.6.1\\res\\values-ky\\values-ky.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -125,7 +108,24 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\gharintwari\\.gradle\\caches\\9.0.0\\transforms\\ab70e62aedaff78a5d105490f9ddc9d9\\transformed\\material3-release\\res\\values-ky\\values-ky.xml",
+                    "source": "C:\\Users\\pc\\.gradle\\caches\\9.0.0\\transforms\\1d0e5c1acde81a0d7b5d5f4b5a338e85\\transformed\\foundation-release\\res\\values-ky\\values-ky.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,154",
+                        "endColumns": "98,103",
+                        "endOffsets": "149,253"
+                    },
+                    "to": {
+                        "startLines": "208,209",
+                        "startColumns": "4,4",
+                        "startOffsets": "20007,20106",
+                        "endColumns": "98,103",
+                        "endOffsets": "20101,20205"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\pc\\.gradle\\caches\\9.0.0\\transforms\\ab70e62aedaff78a5d105490f9ddc9d9\\transformed\\material3-release\\res\\values-ky\\values-ky.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
