@@ -6,14 +6,14 @@ plugins {
 
 android {
     namespace = "com.examples.kigaliride"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.examples.kigaliride"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 3
-        versionName = "3.0"
+        targetSdk = 36
+        versionCode = 4
+        versionName = "3.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
